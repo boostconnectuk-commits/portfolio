@@ -1,0 +1,1839 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ayyoub E. — CRM Systems &amp; Automation Lead</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&family=Space+Mono&display=swap" rel="stylesheet">
+<style>
+/* ── TOKENS ── */
+:root {
+  --gold:    #fec850;
+  --black:   #0a0a0a;
+  --bg:      #fafafa;
+  --text:    #111111;
+  --muted:   #737373;
+  --border:  #e2e2e2;
+  --ease:    cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── NAV ── */
+#nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 200;
+  height: 60px;
+  transition: background 0.25s var(--ease), box-shadow 0.25s var(--ease);
+}
+#nav.scrolled {
+  background: var(--bg);
+  box-shadow: 0 1px 0 var(--border);
+}
+.nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 100%;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+@media (min-width: 768px) { .nav-inner { padding: 0 48px; } }
+
+.nav-logo {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: -0.02em;
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.25s;
+}
+#nav.scrolled .nav-logo { color: var(--black); }
+
+.nav-links {
+  display: none;
+  list-style: none;
+  gap: 36px;
+  align-items: center;
+}
+@media (min-width: 640px) { .nav-links { display: flex; } }
+
+.nav-links a {
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.65);
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+#nav.scrolled .nav-links a { color: var(--muted); }
+.nav-links a:hover,
+#nav.scrolled .nav-links a:hover { color: var(--gold); }
+.nav-links a:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 2px; }
+
+.nav-burger {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+@media (min-width: 640px) { .nav-burger { display: none; } }
+.nav-burger span {
+  display: block;
+  width: 22px;
+  height: 1.5px;
+  background: #fff;
+  transition: background 0.25s;
+}
+#nav.scrolled .nav-burger span { background: var(--black); }
+
+/* ── MOBILE MENU ── */
+#mobile-nav {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 199;
+  background: var(--black);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+}
+#mobile-nav.open { display: flex; }
+.mobile-nav-close {
+  position: absolute;
+  top: 16px; right: 24px;
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.6);
+  font-size: 28px;
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.2s;
+}
+.mobile-nav-close:hover { color: #fff; }
+#mobile-nav a {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 28px;
+  font-weight: 600;
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+#mobile-nav a:hover { color: var(--gold); }
+
+/* ── VIEWS ── */
+.view { display: none; }
+.view.active { display: block; }
+
+/* ── HERO ── */
+.hero {
+  background: var(--black);
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-end;
+  padding: 120px 24px 80px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 55% 55% at 85% 15%, rgba(254,200,80,0.07) 0%, transparent 60%),
+    radial-gradient(ellipse 35% 45% at 10% 90%, rgba(254,200,80,0.04) 0%, transparent 55%);
+  pointer-events: none;
+}
+@media (min-width: 768px) { .hero { padding: 120px 48px 88px; } }
+@media (min-width: 1024px) { .hero { padding: 140px 80px 100px; } }
+
+.hero-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+.hero-eyebrow {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  display: block;
+  margin-bottom: 20px;
+  opacity: 0;
+  animation: fadeUp 0.5s var(--ease) 0.1s forwards;
+}
+.hero-name {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: clamp(52px, 9vw, 100px);
+  color: #fff;
+  letter-spacing: -0.035em;
+  line-height: 0.92;
+  margin-bottom: 28px;
+  opacity: 0;
+  animation: fadeUp 0.55s var(--ease) 0.22s forwards;
+}
+.hero-rule {
+  width: 36px;
+  height: 2px;
+  background: var(--gold);
+  margin-bottom: 24px;
+  opacity: 0;
+  animation: fadeUp 0.5s var(--ease) 0.35s forwards;
+}
+.hero-oneliner {
+  font-size: clamp(15px, 1.8vw, 19px);
+  line-height: 1.7;
+  color: rgba(255,255,255,0.65);
+  max-width: 580px;
+  margin-bottom: 10px;
+  opacity: 0;
+  animation: fadeUp 0.5s var(--ease) 0.44s forwards;
+}
+.hero-subline {
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+  color: rgba(255,255,255,0.35);
+  margin-bottom: 44px;
+  opacity: 0;
+  animation: fadeUp 0.5s var(--ease) 0.52s forwards;
+}
+.btn-cta {
+  display: inline-block;
+  background: var(--gold);
+  color: var(--black);
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  padding: 13px 26px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity 0.18s, transform 0.18s var(--ease);
+  opacity: 0;
+  animation: fadeUp 0.5s var(--ease) 0.62s forwards;
+}
+.btn-cta:hover { opacity: 0.85; transform: translateY(-1px); }
+.btn-cta:active { transform: none; }
+.btn-cta:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+/* ── SECTION SHARED ── */
+.section-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: block;
+  margin-bottom: 48px;
+}
+
+/* ── HOW I WORK ── */
+.how-i-work {
+  padding: 96px 24px;
+}
+@media (min-width: 768px) { .how-i-work { padding: 112px 48px; } }
+
+.how-i-work .section-inner { max-width: 1200px; margin: 0 auto; }
+
+.steps-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+}
+@media (min-width: 600px) { .steps-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .steps-grid { grid-template-columns: repeat(4, 1fr); } }
+
+.step {
+  padding: 28px 0;
+  border-top: 1px solid var(--border);
+}
+@media (min-width: 600px) {
+  .step { padding: 28px 28px 28px 0; }
+  .step:nth-child(even) { padding-left: 28px; border-left: 1px solid var(--border); }
+}
+@media (min-width: 1024px) {
+  .step { padding: 28px 32px 28px 0; border-left: none; }
+  .step + .step { border-left: 1px solid var(--border); padding-left: 32px; }
+}
+.step-idx {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--gold);
+  display: block;
+  margin-bottom: 14px;
+}
+.step-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  font-size: 19px;
+  letter-spacing: -0.02em;
+  margin-bottom: 10px;
+  color: var(--text);
+}
+.step-desc {
+  font-size: 14px;
+  line-height: 1.72;
+  color: var(--muted);
+}
+
+/* ── CATEGORIES GRID ── */
+.categories-section {
+  padding: 0 24px 96px;
+}
+@media (min-width: 768px) { .categories-section { padding: 0 48px 112px; } }
+
+.categories-section .section-inner { max-width: 1200px; margin: 0 auto; }
+
+.cat-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+}
+@media (min-width: 600px) { .cat-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .cat-grid { grid-template-columns: repeat(3, 1fr); } }
+
+.cat-card {
+  background: #fff;
+  padding: 32px 28px 28px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  display: block;
+  text-decoration: none;
+  transition: background 0.2s var(--ease);
+  border: none;
+  text-align: left;
+}
+.cat-card:focus-visible { outline: 2px solid var(--gold); outline-offset: -2px; }
+.cat-card:hover { background: var(--black); }
+
+.cat-ghost {
+  position: absolute;
+  right: 12px;
+  bottom: -16px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 108px;
+  line-height: 1;
+  color: rgba(0,0,0,0.04);
+  user-select: none;
+  pointer-events: none;
+  transition: color 0.2s;
+}
+.cat-card:hover .cat-ghost { color: rgba(255,255,255,0.04); }
+
+.cat-card-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  font-size: 17px;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin-bottom: 8px;
+  transition: color 0.2s;
+  position: relative;
+  z-index: 1;
+}
+.cat-card:hover .cat-card-title { color: #fff; }
+
+.cat-card-desc {
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--muted);
+  margin-bottom: 28px;
+  transition: color 0.2s;
+  position: relative;
+  z-index: 1;
+}
+.cat-card:hover .cat-card-desc { color: rgba(255,255,255,0.5); }
+
+.cat-card-count {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: rgba(0,0,0,0.3);
+  transition: color 0.2s;
+  position: relative;
+  z-index: 1;
+}
+.cat-card:hover .cat-card-count { color: var(--gold); }
+
+/* ── DARK HEADER (shared by category + project views) ── */
+.dark-header {
+  background: var(--black);
+  padding: 88px 24px 60px;
+}
+@media (min-width: 768px) { .dark-header { padding: 100px 48px 68px; } }
+
+.dark-header-inner { max-width: 1200px; margin: 0 auto; }
+
+.back-link {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 28px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.2s;
+  text-decoration: none;
+}
+.back-link:hover { color: var(--gold); }
+.back-link:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 2px; }
+
+.dark-header h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: clamp(28px, 5vw, 52px);
+  color: #fff;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  margin-bottom: 12px;
+}
+.dark-header p {
+  font-size: 15px;
+  color: rgba(255,255,255,0.5);
+  max-width: 520px;
+  line-height: 1.65;
+}
+
+/* ── CATEGORY VIEW ── */
+#view-category { padding-top: 60px; }
+
+.proj-list {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 16px 80px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  align-items: start;
+}
+@media (min-width: 480px) { .proj-list { padding: 36px 24px 88px; gap: 16px; } }
+@media (min-width: 768px) { .proj-list { padding: 44px 48px 96px; gap: 20px; } }
+
+.proj-row {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  text-align: left;
+  background: #fff;
+  border: 1px solid var(--border);
+  overflow: hidden;
+  transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease), transform 0.2s var(--ease);
+  padding: 0;
+}
+.proj-row:hover {
+  border-color: var(--black);
+  box-shadow: 0 6px 24px rgba(0,0,0,0.09);
+  transform: translateY(-2px);
+}
+.proj-row:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+/* Icon preview header */
+.proj-card-icon {
+  height: 110px;
+  background: var(--black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+}
+@media (min-width: 480px) { .proj-card-icon { height: 130px; } }
+@media (min-width: 768px) { .proj-card-icon { height: 160px; } }
+
+.proj-card-icon::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.028) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.028) 1px, transparent 1px);
+  background-size: 22px 22px;
+  pointer-events: none;
+}
+.proj-card-icon svg {
+  width: 36px;
+  height: 36px;
+  position: relative;
+  z-index: 1;
+  transition: transform 0.25s var(--ease);
+}
+@media (min-width: 768px) { .proj-card-icon svg { width: 44px; height: 44px; } }
+.proj-row:hover .proj-card-icon svg { transform: scale(1.1); }
+
+.proj-card-icon-accent {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s var(--ease);
+  z-index: 2;
+}
+.proj-row:hover .proj-card-icon-accent { transform: scaleX(1); }
+
+/* Card body */
+.proj-card-body {
+  padding: 14px 14px 16px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+@media (min-width: 480px) { .proj-card-body { padding: 16px 18px 18px; } }
+@media (min-width: 768px) { .proj-card-body { padding: 20px 22px 22px; } }
+
+.proj-row-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  line-height: 1.3;
+  margin-bottom: 6px;
+  transition: color 0.18s;
+}
+@media (min-width: 480px) { .proj-row-title { font-size: 14px; } }
+@media (min-width: 768px) { .proj-row-title { font-size: 16px; margin-bottom: 8px; } }
+
+.proj-row-context {
+  font-size: 11px;
+  line-height: 1.65;
+  color: var(--muted);
+  flex: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+@media (min-width: 480px) { .proj-row-context { font-size: 12px; } }
+@media (min-width: 768px) { .proj-row-context { font-size: 13px; } }
+
+.proj-row-arrow {
+  font-size: 13px;
+  color: #ccc;
+  align-self: flex-end;
+  margin-top: 12px;
+  transition: transform 0.18s var(--ease), color 0.18s;
+}
+.proj-row:hover .proj-row-arrow { transform: translateX(3px); color: var(--black); }
+
+/* ── PROJECT DETAIL VIEW ── */
+#view-project { padding-top: 60px; }
+
+.proj-tag {
+  display: inline-block;
+  background: var(--gold);
+  color: var(--black);
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 4px 9px;
+  margin-bottom: 20px;
+}
+
+.proj-body {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 56px 24px 96px;
+}
+@media (min-width: 768px) { .proj-body { padding: 64px 48px 96px; } }
+
+.proj-section { margin-bottom: 44px; }
+
+.proj-sec-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: block;
+  margin-bottom: 14px;
+}
+
+.proj-context {
+  font-size: 17px;
+  line-height: 1.72;
+  color: var(--text);
+}
+.proj-challenge,
+.proj-outcome {
+  font-size: 15px;
+  line-height: 1.78;
+  color: var(--muted);
+}
+.proj-outcome { color: var(--text); }
+
+.proj-built {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+.proj-built li {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text);
+  padding-left: 18px;
+  position: relative;
+}
+.proj-built li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 11px;
+  width: 7px;
+  height: 1px;
+  background: var(--gold);
+}
+
+/* ── PREVIEW IMAGES ── */
+.preview-grid {
+  display: grid;
+  gap: 12px;
+  margin-top: 4px;
+}
+.preview-grid.two { grid-template-columns: 1fr 1fr; }
+
+.preview-slot {
+  border: 1.5px dashed var(--border);
+  background: #f5f5f5;
+  min-height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.preview-slot span {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #c8c8c8;
+}
+.preview-slot img,
+.preview-real {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ── BEFORE / AFTER ── */
+.ba-wrap {
+  background: var(--black);
+  margin-top: 4px;
+}
+.ba-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.ba-panel {
+  padding: 36px 28px;
+}
+.ba-panel.ba-before { border-right: 1px solid rgba(255,255,255,0.07); }
+.ba-panel.ba-after  { position: relative; }
+.ba-panel.ba-after::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: var(--gold);
+}
+.ba-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  display: block;
+  margin-bottom: 22px;
+}
+.ba-stat { margin-bottom: 14px; }
+.ba-num {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: clamp(28px, 4vw, 40px);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  display: block;
+  margin-bottom: 3px;
+}
+.ba-before .ba-num { color: rgba(255,255,255,0.28); }
+.ba-after  .ba-num { color: var(--gold); }
+.ba-stat-label {
+  font-size: 11px;
+  color: rgba(255,255,255,0.35);
+}
+.ba-img-slot {
+  margin-top: 20px;
+  border: 1px dashed rgba(255,255,255,0.12);
+  min-height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ba-img-slot span {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.18);
+  text-transform: uppercase;
+}
+.ba-img-slot img { width: 100%; display: block; }
+
+/* ── DEVICE FRAMES (landing pages) ── */
+.device-pair {
+  display: grid;
+  grid-template-columns: 1fr 140px;
+  gap: 16px;
+  align-items: flex-end;
+}
+@media (min-width: 640px) { .device-pair { grid-template-columns: 1fr 170px; gap: 24px; } }
+
+/* macOS browser window */
+.device-mac {
+  background: #1c1c1e;
+  border-radius: 10px 10px 0 0;
+  overflow: hidden;
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.06), 0 12px 32px rgba(0,0,0,0.22);
+}
+.device-mac-bar {
+  background: #2c2c2e;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  gap: 6px;
+}
+.device-mac-dot { width: 10px; height: 10px; border-radius: 50%; }
+.device-mac-dot:nth-child(1) { background: #ff5f57; }
+.device-mac-dot:nth-child(2) { background: #febc2e; }
+.device-mac-dot:nth-child(3) { background: #28c840; }
+.device-mac-screen {
+  aspect-ratio: 16/10;
+  background: #f0f0f0;
+  overflow: hidden;
+  position: relative;
+}
+.device-mac-screen img    { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+.device-mac-screen .slot  { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+
+/* iPhone frame */
+.device-iphone-wrap {
+  flex-shrink: 0;
+}
+.device-iphone-shell {
+  background: #1c1c1e;
+  border-radius: 36px;
+  padding: 10px 7px;
+  position: relative;
+  box-shadow: 0 0 0 1.5px #3a3a3c, 0 8px 28px rgba(0,0,0,0.28);
+}
+.device-iphone-notch {
+  position: absolute;
+  top: 10px; left: 50%;
+  transform: translateX(-50%);
+  width: 64px; height: 20px;
+  background: #1c1c1e;
+  border-radius: 0 0 14px 14px;
+  z-index: 2;
+}
+.device-iphone-screen {
+  border-radius: 28px;
+  overflow: hidden;
+  aspect-ratio: 9/19.5;
+  background: #f0f0f0;
+  position: relative;
+}
+.device-iphone-screen img   { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+.device-iphone-screen .slot { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 4px; }
+.device-iphone-bar {
+  width: 36%; height: 4px;
+  background: #3a3a3c;
+  border-radius: 2px;
+  margin: 8px auto 0;
+}
+
+/* shared slot label */
+.device-slot-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #c0c0c0;
+}
+
+/* ── EMAIL PERFORMANCE TIMELINE ── */
+.email-timeline {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+}
+@media (max-width: 599px) { .email-timeline { flex-direction: column; } }
+
+.tl-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.tl-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  flex-shrink: 0;
+  color: var(--gold);
+  font-size: 16px;
+  padding-bottom: 52px;
+}
+@media (max-width: 599px) {
+  .tl-arrow { width: auto; height: 28px; padding: 0 0 0 0; transform: rotate(90deg); align-self: center; }
+}
+.tl-img-slot {
+  aspect-ratio: 4/3;
+  background: #f5f5f5;
+  border: 1.5px dashed var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+.tl-img-slot img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+.tl-img-slot .slot-lbl {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #ccc;
+}
+.tl-meta {
+  padding: 10px 0 0;
+  border-top: 2px solid var(--border);
+  margin-top: 0;
+}
+.tl-period {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--text);
+  display: block;
+  margin-bottom: 3px;
+}
+.tl-sublabel {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+/* ── FOOTER ── */
+footer {
+  background: var(--black);
+  padding: 72px 24px 48px;
+}
+@media (min-width: 768px) { footer { padding: 88px 48px 56px; } }
+
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.footer-top {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  margin-bottom: 28px;
+}
+@media (min-width: 768px) {
+  .footer-top { flex-direction: row; align-items: flex-end; justify-content: space-between; }
+}
+.footer-tagline {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  font-size: clamp(18px, 2.5vw, 26px);
+  color: #fff;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+  max-width: 440px;
+}
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+@media (min-width: 768px) { .footer-links { align-items: flex-end; } }
+.footer-links a {
+  font-size: 13px;
+  color: rgba(255,255,255,0.45);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--gold); }
+.footer-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.footer-meta span {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.2);
+}
+
+/* ── SCROLL FADE ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
+}
+.reveal.visible { opacity: 1; transform: none; }
+
+/* ── KEYFRAMES ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ── REDUCED MOTION ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  .reveal { opacity: 1; transform: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="#home">AE</a>
+    <ul class="nav-links">
+      <li><a data-scroll="work-section">Work</a></li>
+      <li><a data-scroll="how-i-work-section">How I Work</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="nav-burger" aria-label="Open menu" id="burger-btn">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- MOBILE NAV -->
+<div id="mobile-nav" role="dialog" aria-modal="true" aria-label="Navigation menu">
+  <button class="mobile-nav-close" id="mobile-close" aria-label="Close menu">&times;</button>
+  <a data-scroll="work-section" data-mobile="true">Work</a>
+  <a data-scroll="how-i-work-section" data-mobile="true">How I Work</a>
+  <a href="#contact" data-mobile="true">Contact</a>
+</div>
+
+<!-- VIEW: HOME -->
+<div id="view-home" class="view active">
+
+  <section class="hero" id="hero-section">
+    <div class="hero-inner">
+      <span class="hero-eyebrow" id="hero-eyebrow"></span>
+      <h1 class="hero-name" id="hero-name"></h1>
+      <div class="hero-rule"></div>
+      <p class="hero-oneliner" id="hero-oneliner"></p>
+      <p class="hero-subline" id="hero-subline"></p>
+      <button class="btn-cta" data-scroll="work-section">View my work</button>
+    </div>
+  </section>
+
+  <section class="how-i-work" id="how-i-work-section">
+    <div class="section-inner">
+      <span class="section-label">How I Work</span>
+      <div class="steps-grid" id="steps-grid"></div>
+    </div>
+  </section>
+
+  <section class="categories-section" id="work-section">
+    <div class="section-inner">
+      <span class="section-label">Work</span>
+      <div class="cat-grid" id="cat-grid"></div>
+    </div>
+  </section>
+
+</div>
+
+<!-- VIEW: CATEGORY -->
+<div id="view-category" class="view">
+  <div class="dark-header">
+    <div class="dark-header-inner">
+      <button class="back-link" id="cat-back">&#8592; All work</button>
+      <h1 id="cat-title"></h1>
+      <p id="cat-desc"></p>
+    </div>
+  </div>
+  <div class="proj-list" id="proj-list"></div>
+</div>
+
+<!-- VIEW: PROJECT -->
+<div id="view-project" class="view">
+  <div class="dark-header">
+    <div class="dark-header-inner">
+      <button class="back-link" id="proj-back">&#8592; Back</button>
+      <div class="proj-tag" id="proj-tag"></div>
+      <h1 id="proj-title"></h1>
+    </div>
+  </div>
+  <div class="proj-body" id="proj-body"></div>
+</div>
+
+<!-- FOOTER -->
+<footer id="contact">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <p class="footer-tagline" id="footer-tagline"></p>
+      <div class="footer-links" id="footer-links"></div>
+    </div>
+    <div class="footer-meta" id="footer-meta"></div>
+  </div>
+</footer>
+
+<script>
+/* ================================================================
+ * PORTFOLIO_DATA
+ * ================================================================
+ *
+ * HOW TO ADD A PROJECT
+ * ─────────────────────
+ * 1. Find the right category in the `categories` array (or add one).
+ * 2. Push a new object into that category's `projects` array.
+ * 3. Assign a unique `id` string — no spaces, use hyphens (e.g. "crm-04").
+ * 4. Fill in the fields. Leave any field as "" or [] to hide it from
+ *    the detail view — no HTML or CSS changes needed.
+ * 5. Images:
+ *      images: ["url"]           → one image, full-width
+ *      images: ["url1", "url2"]  → two images side-by-side (desktop / mobile pair)
+ *      images: [""]              → placeholder shown with dashed border
+ *      images: []                → no preview section rendered
+ * 6. before/after module: only the Deliverability project uses this.
+ *    Set beforeAfter: null for all others.
+ *
+ * The page re-renders entirely from this object. Never edit HTML or CSS
+ * to add content — edit PORTFOLIO_DATA only.
+ * ================================================================ */
+const PORTFOLIO_DATA = {
+
+  hero: {
+    name:     "Ayyoub E.",
+    eyebrow:  "CRM Systems & Automation Lead",
+    oneliner: "I design revenue operations infrastructure, then build it. CRM architecture, automation, AI-assisted workflows and multi-channel campaigns across UK, AU and MENA markets.",
+    subline:  "Delivering in English, French, Italian and Arabic (Darija).",
+  },
+
+  stats: [
+    { number: "11% → 36%", label: "Email open rate lift on a live list" },
+    { number: "≈200",       label: "Automations owned and governed across regions" },
+    { number: "1",              label: "Paid helpdesk tool eliminated with a custom CRM build" },
+  ],
+
+  howIWork: [
+    { title: "Design",
+      desc:  "I map the system on paper before touching the platform. Logic, edge cases and failure states first." },
+    { title: "Document",
+      desc:  "Every build ships with documentation the team can actually use." },
+    { title: "Build",
+      desc:  "Implementation in the CRM, APIs and scripts. I use AI to accelerate build and documentation, not to replace the thinking." },
+    { title: "Validate",
+      desc:  "Test against edge cases, measure against the KPI the system was designed for." },
+  ],
+
+  footer: {
+    tagline:  "Open to CRM systems, automation and consultancy engagements.",
+    email:    "your@email.com",           /* ← replace */
+    linkedin: "https://linkedin.com/in/your-profile", /* ← replace */
+  },
+
+  categories: [
+
+    /* ── 1. CRM SYSTEMS ── */
+    {
+      id:          "crm-systems",
+      title:       "CRM Systems & Architecture",
+      description: "Core CRM infrastructure: routing engines, phone systems, and data architecture.",
+      projects: [
+        {
+          id:        "helpdesk-replacement",
+          title:     "Helpdesk Replacement System",
+          context:   "Built for a UK trading education group operating entirely within a CRM. The team was paying for a dedicated helpdesk tool despite the CRM being capable of handling the same function natively.",
+          challenge: "Ticket ownership was unclear, response time went untracked, and the subscription cost was unjustifiable given what the CRM could already do. The routing logic existed in people's heads, not in the system.",
+          whatIBuilt: [
+            "Ticket routing engine built in Google Apps Script",
+            "Agent availability sync via Sheets, refreshed on a nightly automation",
+            "Tag-based ticket state machine tracking open, assigned, and resolved states",
+          ],
+          images:    [""], /* ← architecture flow diagram */
+          outcome:   "Helpdesk subscription eliminated. Response ownership automated.",
+          beforeAfter: null,
+        },
+        {
+          id:        "phone-ivr",
+          title:     "Phone System & IVR Build",
+          context:   "Built the company phone system from scratch for a UK trading education group with no internal call infrastructure.",
+          challenge: "Inbound call routing was manual and agent assignment had no logic or accountability. Compliance constraints around payment capture over the phone (PCI/DTMF) were entirely undocumented and unresolved with the vendor.",
+          whatIBuilt: [
+            "IVR menu structure and call routing configuration",
+            "Agent assignment rules with defined escalation paths",
+            "PCI/DTMF compliance analysis: constraints documented, escalated to vendor, workarounds specified",
+          ],
+          images:    [""], /* ← routing logic diagram */
+          outcome:   "Manual call handling removed.",
+          beforeAfter: null,
+        },
+        {
+          id:        "agent-availability",
+          title:     "Agent Availability Engine",
+          context:   "Built as part of a larger CRM infrastructure project for a UK trading education group experiencing agent double-booking during peak inbound call volumes.",
+          challenge: "The CRM had no native availability tracking. Round-robin assignment was running blind — agents were being double-booked and workload distribution was uneven with no visibility into why.",
+          whatIBuilt: [
+            "Custom CRM objects tracking agent status and last-assignment cooldown timestamp",
+            "Round-robin assignment logic that queries availability before each assignment",
+            "Configurable cooldown window preventing double-booking between consecutive assignments",
+          ],
+          images:    [],
+          outcome:   "",
+          beforeAfter: null,
+        },
+      ],
+    },
+
+    /* ── 2. AUTOMATION ── */
+    {
+      id:          "automation",
+      title:       "Automation & Integrations",
+      description: "API integrations and automation governance at scale.",
+      projects: [
+        {
+          id:        "telesales-attribution",
+          title:     "Telesales Attribution System",
+          context:   "Built for a sales team where telesales-driven closes and in-event closes were being conflated in reporting, creating commission disputes between agents.",
+          challenge: "Attribution was manual and manipulable. There was no system-level mechanism to distinguish a telesales close from a conversion that happened at or immediately after a live event. Any agent could claim credit for either type.",
+          whatIBuilt: [
+            "Call-log matching via dialer API confirming telesales contact occurred before close",
+            "Automation-applied tags marking each close type using system-generated signals only — no manual input",
+            "90-minute post-event boundary rule excluding venue-adjacent follow-ups from telesales credit",
+            "Google Apps Script backend with secure credential storage",
+          ],
+          images:    ["", ""], /* ← [sanitized dashboard screenshot, boundary-rule diagram] */
+          outcome:   "Attribution disputes removed from agent commission conversations.",
+          beforeAfter: null,
+        },
+        {
+          id:        "automation-governance",
+          title:     "Automation Governance at Scale",
+          context:   "An operational framework built for a 5-person CRM team managing approximately 200 live automations across 3 regions.",
+          challenge: "No inventory existed. Duplicate automations were being built in parallel across the team. There was no ownership model, no priority system, and no way to audit the full automation landscape without manually clicking through every folder.",
+          whatIBuilt: [
+            "Folder taxonomy with numeric priority prefixes per region and function",
+            "Ownership model assigning a named accountable team member to every automation",
+            "Single-source-of-truth inventory document enabling full auditability across all 200+ automations",
+          ],
+          images:    [],
+          outcome:   "",
+          beforeAfter: null,
+        },
+        {
+          id:        "call-log-pipeline",
+          title:     "Call Log & Funnel Tracking Pipeline",
+          context:   "Built for a team with no structured mechanism to record inbound call activity or map lead progression across a multi-step sales funnel.",
+          challenge: "Call data sat in the dialer, lead stage data sat in the CRM, and the two had no connection. Funnel reporting was manual, delayed, and inconsistent between team members.",
+          whatIBuilt: [
+            "Webhook-driven call logging from dialer to Sheets in real time",
+            "Lead funnel tracker mapping tag-based progression stages: reply, session booked, enrolment call",
+            "Appointment status tracking and lost-reason capture at each funnel exit point",
+          ],
+          images:    [""], /* ← sanitized sheet screenshot */
+          outcome:   "",
+          beforeAfter: null,
+        },
+      ],
+    },
+
+    /* ── 3. AI SYSTEMS ── */
+    {
+      id:          "ai-systems",
+      title:       "AI & Intelligent Systems",
+      description: "AI agents embedded into real operational workflows.",
+      projects: [
+        {
+          id:        "ai-voice-reception",
+          title:     "AI Voice Reception Agent",
+          context:   "Built to handle inbound call volume for a team where manual screening was consuming significant staff time on low-complexity enquiries.",
+          challenge: "Every inbound call required a human to answer, triage, and route. There was no first-filter layer and no consistent context passed to the agent receiving the transfer.",
+          whatIBuilt: [
+            "AI agent answering inbound calls and capturing the nature of each enquiry",
+            "Structured context package generated before transfer to the relevant team member",
+            "Routing logic mapping enquiry types to the correct team member or department",
+          ],
+          images:    [],
+          outcome:   "Demo available on request.",
+          beforeAfter: null,
+        },
+        {
+          id:        "email-intelligence",
+          title:     "Email Intelligence Assistant",
+          context:   "Built for a team managing a high-volume shared inbox where important emails were being missed or acted on too slowly.",
+          challenge: "Volume made manual triage impractical. No prioritisation layer existed between the inbox and the people who needed to act on it.",
+          whatIBuilt: [
+            "Gmail API poller monitoring the inbox continuously for new messages",
+            "Claude summarisation layer generating a short, prioritised summary per email",
+            "Telegram delivery for immediate mobile access to summaries",
+            "Notion logging providing a searchable, persistent email record",
+            "Deployed on a cloud backend for continuous, unattended operation",
+          ],
+          images:    [""], /* ← sanitized Telegram screenshot */
+          outcome:   "Unread inbox turned into a prioritised feed.",
+          beforeAfter: null,
+        },
+        {
+          id:        "whatsapp-ai-platform",
+          title:     "WhatsApp AI Platform (Architecture)",
+          context:   "Architecture design for a multi-tenant product enabling AI-generated WhatsApp replies synced to each client's CRM.",
+          challenge: "The system required full isolation of each client's WhatsApp credentials, CRM connection, and conversation state, while keeping the AI layer in sync with live CRM data across all tenants simultaneously.",
+          whatIBuilt: [
+            "Multi-tenant architecture with complete per-client data isolation",
+            "Meta embedded sign-up flow for WhatsApp Business API onboarding",
+            "Encrypted per-client token storage",
+            "Two-way workflow triggers syncing WhatsApp conversation state to CRM contact records",
+          ],
+          images:    [""], /* ← architecture diagram */
+          outcome:   "",
+          beforeAfter: null,
+        },
+      ],
+    },
+
+    /* ── 4. EMAIL ── */
+    {
+      id:          "email-marketing",
+      title:       "Email Marketing & Deliverability",
+      description: "Template systems and the deliverability infrastructure behind them.",
+      projects: [
+        {
+          id:        "deliverability-turnaround",
+          title:     "Deliverability Turnaround",
+          context:   "A live email list with severely degraded inbox placement. Open rates had fallen to 11% before the infrastructure rebuild.",
+          challenge: "Root causes were distributed across the sending infrastructure — domain reputation, IP history, authentication gaps, and compliance headers — not the content. Each layer required independent diagnosis and remediation.",
+          whatIBuilt: [
+            "Dedicated IP warm-up schedule and ramp plan",
+            "Multi-subdomain backup infrastructure to insulate the primary sending domain",
+            "SPF, DKIM, and DMARC alignment across all sending domains and subdomains",
+            "Compliance header audit and corrections across all active campaigns",
+          ],
+          images:    [],
+          outcome:   "Open rate lifted from 11% to 36% on the same live list.",
+          beforeAfter: null,
+          timelineImages: [
+            { period: "Months 1–3", sublabel: "Pre-rebuild baseline",   imgSrc: "" }, /* ← oldest screenshot */
+            { period: "Months 4–6", sublabel: "During IP warm-up",      imgSrc: "" }, /* ← mid screenshot   */
+            { period: "Months 7–9", sublabel: "Post full deployment",   imgSrc: "" }, /* ← latest screenshot */
+          ],
+        },
+        {
+          id:        "email-template-system",
+          title:     "Event Email Template System",
+          context:   "Reusable email template system for a group running recurring live events, where each event had previously required a bespoke email build from scratch.",
+          challenge: "No modular system existed. CRM merge tags had known rendering quirks requiring specific table-layout workarounds that had to be rediscovered with each build.",
+          whatIBuilt: [
+            "HTML template family covering registration, reminders, QR ticket delivery, and post-event nurture",
+            "CRM merge-tag personalisation built into each template",
+            "Client-quirk-proof table layouts handling known CRM rendering edge cases",
+            "Desktop and mobile rendering tested across major email clients",
+          ],
+          images:    ["", ""], /* ← [desktop screenshot, mobile screenshot] */
+          outcome:   "",
+          beforeAfter: null,
+        },
+        {
+          id:        "nurture-series",
+          title:     "Pre-Event Video Nurture Series",
+          context:   "A 4-episode email series introducing event presenters ahead of a live event, deployed across multiple presenters and event locations.",
+          challenge: "Each presenter had a unique bio, headshot, and location-specific event details. Without a dynamic template, a separate build was required for every presenter-location combination.",
+          whatIBuilt: [
+            "4-episode email series with a modular, episode-agnostic structure",
+            "Dynamic bio merge fields allowing one template to serve all presenter variants",
+            "Location-specific variable fields for dates, venues, and registration links",
+          ],
+          images:    ["", ""], /* ← [desktop screenshot, mobile screenshot] */
+          outcome:   "",
+          beforeAfter: null,
+        },
+      ],
+    },
+
+    /* ── 5. LANDING PAGES ── */
+    {
+      id:          "landing-pages",
+      title:       "Landing Pages & Funnels",
+      description: "Conversion pages built for the CRM they live in.",
+      projects: [
+        {
+          id:        "event-registration-funnel",
+          title:     "Event Registration Funnel",
+          context:   "Registration funnel for a recurring live event series, constrained by CRM requirements that made standard responsive design unworkable.",
+          challenge: "The CRM required separate namespaced builds for desktop and mobile. A single responsive page could not satisfy both environments. The constraint had to be acknowledged in the build architecture, not worked around.",
+          whatIBuilt: [
+            "Registration page, confirmation page, and pre-event reminder page",
+            "Separate namespaced desktop and mobile builds meeting CRM compatibility requirements",
+            "CRM form integration with tag-based confirmation and automation triggers",
+          ],
+          images:    ["", ""], /* ← [desktop screenshot, mobile screenshot] */
+          previewStyle: "device",
+          outcome:   "",
+          beforeAfter: null,
+        },
+        {
+          id:        "loyalty-landing-page",
+          title:     "Loyalty Platform Landing Page",
+          context:   "Built for a MENA loyalty-tech startup targeting a French and Darija-speaking audience with high mobile usage.",
+          challenge: "The page needed to function bilingually, integrate a CRM form, present a video block, and convert on mobile with a sticky CTA — all within the CRM's page builder constraints.",
+          whatIBuilt: [
+            "Bilingual layout in French and Darija with appropriate text-direction handling",
+            "Embedded CRM form with submission tracking",
+            "Video block and localised testimonial module",
+            "Mobile sticky CTA appearing on scroll above the fold",
+          ],
+          images:    ["", ""], /* ← [desktop screenshot, mobile screenshot] */
+          previewStyle: "device",
+          outcome:   "",
+          beforeAfter: null,
+        },
+        {
+          id:        "tracking-attribution-fixes",
+          title:     "Tracking & Attribution Fixes",
+          context:   "Paid social campaigns for a client experiencing inflated lead counts and unreliable Meta reporting.",
+          challenge: "Pixel and server-side Conversions API events were firing simultaneously on the same conversion event, causing the same lead to be counted twice in Meta's reporting and inflating cost-per-lead figures.",
+          whatIBuilt: [
+            "Root cause diagnosis: simultaneous pixel and Conversions API double-fire on conversion",
+            "Deduplication logic implemented across pixel and server-side events",
+            "Lead event reconfigured to fire on form submission only, eliminating page-load duplicates",
+          ],
+          images:    [],
+          outcome:   "Lead data accuracy restored.",
+          beforeAfter: null,
+        },
+      ],
+    },
+
+    /* ── 6. CONSULTANCY ── */
+    {
+      id:          "consultancy",
+      title:       "Consultancy & Enablement",
+      description: "Making systems usable: onboarding, documentation, stakeholder reporting.",
+      projects: [
+        {
+          id:        "stakeholder-reporting",
+          title:     "Stakeholder Reporting Frameworks",
+          context:   "Built for leadership teams that needed visibility into CRM performance without the technical knowledge to read CRM-native reports.",
+          challenge: "CRM data was inaccessible to the people who needed to act on it. Reports were either too technical, too infrequent, or too divorced from business decisions to be useful.",
+          whatIBuilt: [
+            "Business-language reporting documents translating CRM metrics into actionable decisions",
+            "Interactive dashboards presenting pipeline stage health, conversion rates, and campaign attribution",
+            "Defined reporting cadence with a named owner assigned per metric",
+          ],
+          images:    [""], /* ← sanitized slide screenshot */
+          outcome:   "",
+          beforeAfter: null,
+        },
+        {
+          id:        "team-onboarding",
+          title:     "Team Onboarding & Documentation",
+          context:   "Built for a CRM team and event operations staff where no structured onboarding existed. New team members learned entirely by observing experienced colleagues.",
+          challenge: "Knowledge lived in people's heads. Onboarding was slow, inconsistent, and entirely dependent on the availability of senior team members at any given moment.",
+          whatIBuilt: [
+            "Onboarding packs for CRM assistants covering core system logic and daily workflows",
+            "Onboarding packs for event staff covering registration, check-in, and post-event processes",
+            "Team task system with role-based views for a team of 7",
+          ],
+          images:    [],
+          outcome:   "",
+          beforeAfter: null,
+        },
+        {
+          id:        "crm-advisory",
+          title:     "CRM Account Setup & Advisory",
+          context:   "End-to-end CRM account builds for new brands setting up their go-to-market infrastructure from scratch.",
+          challenge: "New account setups require coordinated decisions across pipelines, phone, compliance, and automation baseline before any marketing can run. Getting the sequencing wrong creates rework that compounds as the team grows.",
+          whatIBuilt: [
+            "Pipeline architecture and deal stage definitions",
+            "Calendar and booking integration configuration",
+            "Phone system setup and compliance configuration",
+            "Automation baseline: lead capture, assignment routing, and nurture entry points",
+          ],
+          images:    [],
+          outcome:   "",
+          beforeAfter: null,
+        },
+      ],
+    },
+
+  ], /* end categories */
+
+}; /* end PORTFOLIO_DATA */
+
+
+/* ================================================================
+ * UTILS
+ * ================================================================ */
+function esc(s) {
+  if (s == null) return '';
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+function escAttr(s) { return esc(s); }
+
+function findProject(id) {
+  for (var i = 0; i < PORTFOLIO_DATA.categories.length; i++) {
+    var cat = PORTFOLIO_DATA.categories[i];
+    for (var j = 0; j < cat.projects.length; j++) {
+      if (cat.projects[j].id === id) return { project: cat.projects[j], cat: cat };
+    }
+  }
+  return null;
+}
+
+function findCategory(id) {
+  for (var i = 0; i < PORTFOLIO_DATA.categories.length; i++) {
+    if (PORTFOLIO_DATA.categories[i].id === id) return PORTFOLIO_DATA.categories[i];
+  }
+  return null;
+}
+
+
+/* ================================================================
+ * ROUTING
+ * ================================================================ */
+function getHash() {
+  return (window.location.hash || '').replace(/^#/, '') || 'home';
+}
+
+function navigate(hash) {
+  window.history.pushState(null, '', '#' + hash);
+  route(hash);
+  window.scrollTo({ top: 0 });
+}
+
+window.addEventListener('popstate', function () {
+  route(getHash());
+  window.scrollTo({ top: 0 });
+});
+
+function route(hash) {
+  if (!hash || hash === 'home') { showView('view-home'); return; }
+  var parts = hash.split('/');
+  if (parts[0] === 'category' && parts[1]) { renderCategory(parts[1]); return; }
+  if (parts[0] === 'project'  && parts[1]) { renderProject(parts[1]);  return; }
+  showView('view-home');
+}
+
+function showView(id) {
+  document.querySelectorAll('.view').forEach(function (v) { v.classList.remove('active'); });
+  document.getElementById(id).classList.add('active');
+}
+
+
+/* ================================================================
+ * RENDER: HOME
+ * ================================================================ */
+function renderHome() {
+  var d = PORTFOLIO_DATA;
+
+  /* hero */
+  document.getElementById('hero-eyebrow').textContent  = d.hero.eyebrow;
+  document.getElementById('hero-name').textContent     = d.hero.name;
+  document.getElementById('hero-oneliner').textContent = d.hero.oneliner;
+  document.getElementById('hero-subline').textContent  = d.hero.subline;
+
+  /* steps */
+  document.getElementById('steps-grid').innerHTML = d.howIWork.map(function (s, i) {
+    return '<div class="step reveal">' +
+      '<span class="step-idx">0' + (i + 1) + '</span>' +
+      '<div class="step-title">' + esc(s.title) + '</div>' +
+      '<p class="step-desc">' + esc(s.desc) + '</p>' +
+      '</div>';
+  }).join('');
+
+  /* category cards */
+  document.getElementById('cat-grid').innerHTML = d.categories.map(function (c, i) {
+    return '<button class="cat-card reveal" data-nav="category/' + esc(c.id) + '" aria-label="View ' + esc(c.title) + '">' +
+      '<div class="cat-ghost" aria-hidden="true">' + (i + 1) + '</div>' +
+      '<div class="cat-card-title">' + esc(c.title) + '</div>' +
+      '<div class="cat-card-desc">' + esc(c.description) + '</div>' +
+      '<div class="cat-card-count">' + esc(String(c.projects.length).padStart(2, '0')) + ' projects</div>' +
+      '</button>';
+  }).join('');
+
+  /* footer */
+  document.getElementById('footer-tagline').textContent = d.footer.tagline;
+  document.getElementById('footer-links').innerHTML =
+    '<a href="mailto:' + escAttr(d.footer.email) + '">' + esc(d.footer.email) + '</a>' +
+    '<a href="' + escAttr(d.footer.linkedin) + '" target="_blank" rel="noopener noreferrer">LinkedIn</a>';
+  document.getElementById('footer-meta').innerHTML =
+    '<span>Ayyoub E.</span><span>UK / MENA</span>';
+
+  /* scroll reveal */
+  initReveal();
+}
+
+
+/* ================================================================
+ * RENDER: CATEGORY
+ * ================================================================ */
+var CAT_ICONS = {
+  'crm-systems':
+    '<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">' +
+      '<circle cx="24" cy="9"  r="4.5" stroke="white" stroke-opacity=".7" stroke-width="1.5"/>' +
+      '<circle cx="9"  cy="38" r="4.5" stroke="white" stroke-opacity=".7" stroke-width="1.5"/>' +
+      '<circle cx="39" cy="38" r="4.5" stroke="white" stroke-opacity=".7" stroke-width="1.5"/>' +
+      '<line x1="24" y1="13.5" x2="9"  y2="33.5" stroke="white" stroke-opacity=".4" stroke-width="1.5"/>' +
+      '<line x1="24" y1="13.5" x2="39" y2="33.5" stroke="white" stroke-opacity=".4" stroke-width="1.5"/>' +
+      '<line x1="9"  y1="38"   x2="39" y2="38"   stroke="white" stroke-opacity=".25" stroke-width="1.5" stroke-dasharray="3 3"/>' +
+    '</svg>',
+  'automation':
+    '<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">' +
+      '<path d="M32 10C38 13 42 19 42 26C42 34.8 34.8 42 26 42C17.2 42 10 34.8 10 26C10 19 14 13 20 10" stroke="white" stroke-opacity=".7" stroke-width="1.5" stroke-linecap="round"/>' +
+      '<polyline points="20,6 20,11 25,11" stroke="white" stroke-opacity=".7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>' +
+      '<line x1="26" y1="20" x2="26" y2="28" stroke="#fec850" stroke-width="1.5" stroke-linecap="round"/>' +
+      '<line x1="22" y1="24" x2="30" y2="24" stroke="#fec850" stroke-width="1.5" stroke-linecap="round"/>' +
+    '</svg>',
+  'ai-systems':
+    '<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">' +
+      '<rect x="15" y="15" width="18" height="18" rx="3" stroke="white" stroke-opacity=".7" stroke-width="1.5"/>' +
+      '<line x1="15" y1="24" x2="8"  y2="24" stroke="white" stroke-opacity=".4" stroke-width="1.5"/>' +
+      '<line x1="40" y1="24" x2="33" y2="24" stroke="white" stroke-opacity=".4" stroke-width="1.5"/>' +
+      '<line x1="24" y1="15" x2="24" y2="8"  stroke="white" stroke-opacity=".4" stroke-width="1.5"/>' +
+      '<line x1="24" y1="40" x2="24" y2="33" stroke="white" stroke-opacity=".4" stroke-width="1.5"/>' +
+      '<circle cx="8"  cy="24" r="2" fill="#fec850"/>' +
+      '<circle cx="40" cy="24" r="2" fill="#fec850"/>' +
+      '<circle cx="24" cy="8"  r="2" fill="#fec850"/>' +
+      '<circle cx="24" cy="40" r="2" fill="#fec850"/>' +
+      '<circle cx="24" cy="24" r="3.5" fill="white" fill-opacity=".15" stroke="white" stroke-opacity=".5" stroke-width="1"/>' +
+    '</svg>',
+  'email-marketing':
+    '<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">' +
+      '<rect x="6" y="13" width="36" height="25" rx="2" stroke="white" stroke-opacity=".7" stroke-width="1.5"/>' +
+      '<polyline points="6,13 24,28 42,13" stroke="white" stroke-opacity=".5" stroke-width="1.5" stroke-linejoin="round"/>' +
+      '<line x1="6"  y1="38" x2="16" y2="28" stroke="white" stroke-opacity=".25" stroke-width="1.5"/>' +
+      '<line x1="42" y1="38" x2="32" y2="28" stroke="white" stroke-opacity=".25" stroke-width="1.5"/>' +
+      '<circle cx="37" cy="13" r="5" fill="#fec850"/>' +
+      '<line x1="37" y1="10" x2="37" y2="16" stroke="#0a0a0a" stroke-width="1.5" stroke-linecap="round"/>' +
+      '<line x1="34" y1="13" x2="40" y2="13" stroke="#0a0a0a" stroke-width="1.5" stroke-linecap="round"/>' +
+    '</svg>',
+  'landing-pages':
+    '<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">' +
+      '<rect x="7" y="7" width="34" height="34" rx="2" stroke="white" stroke-opacity=".7" stroke-width="1.5"/>' +
+      '<line x1="7" y1="17" x2="41" y2="17" stroke="white" stroke-opacity=".35" stroke-width="1.5"/>' +
+      '<rect x="12" y="22" width="14" height="12" rx="1" stroke="white" stroke-opacity=".6" stroke-width="1.5"/>' +
+      '<line x1="30" y1="23" x2="37" y2="23" stroke="white" stroke-opacity=".4" stroke-width="1.5"/>' +
+      '<line x1="30" y1="27" x2="35" y2="27" stroke="white" stroke-opacity=".4" stroke-width="1.5"/>' +
+      '<line x1="30" y1="31" x2="37" y2="31" stroke="white" stroke-opacity=".25" stroke-width="1.5"/>' +
+      '<rect x="12" y="36" width="24" height="4" rx="1" fill="#fec850" fill-opacity=".8"/>' +
+    '</svg>',
+  'consultancy':
+    '<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">' +
+      '<rect x="8" y="9" width="32" height="30" rx="2" stroke="white" stroke-opacity=".7" stroke-width="1.5"/>' +
+      '<line x1="14" y1="18" x2="34" y2="18" stroke="white" stroke-opacity=".35" stroke-width="1.5"/>' +
+      '<line x1="14" y1="24" x2="34" y2="24" stroke="white" stroke-opacity=".35" stroke-width="1.5"/>' +
+      '<line x1="14" y1="30" x2="24" y2="30" stroke="white" stroke-opacity=".35" stroke-width="1.5"/>' +
+      '<polyline points="27,32 30,26 33,29 37,22" stroke="#fec850" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>' +
+    '</svg>',
+};
+
+function renderCategory(catId) {
+  var cat = findCategory(catId);
+  if (!cat) { navigate('home'); return; }
+
+  document.getElementById('cat-title').textContent = cat.title;
+  document.getElementById('cat-desc').textContent  = cat.description;
+  document.getElementById('cat-back').onclick = function () { navigate('home'); };
+
+  var icon = CAT_ICONS[cat.id] || CAT_ICONS['consultancy'];
+
+  document.getElementById('proj-list').innerHTML = cat.projects.map(function (p) {
+    return '<button class="proj-row" data-nav="project/' + esc(p.id) + '" aria-label="View ' + esc(p.title) + '">' +
+      '<div class="proj-card-icon">' +
+        icon +
+        '<div class="proj-card-icon-accent"></div>' +
+      '</div>' +
+      '<div class="proj-card-body">' +
+        '<div class="proj-row-title">' + esc(p.title) + '</div>' +
+        '<div class="proj-row-context">' + esc(p.context) + '</div>' +
+        '<span class="proj-row-arrow" aria-hidden="true">&#8594;</span>' +
+      '</div>' +
+      '</button>';
+  }).join('');
+
+  showView('view-category');
+}
+
+
+/* ================================================================
+ * RENDER: PROJECT
+ * ================================================================ */
+function renderProject(projectId) {
+  var found = findProject(projectId);
+  if (!found) { navigate('home'); return; }
+  var p   = found.project;
+  var cat = found.cat;
+
+  document.getElementById('proj-tag').textContent   = cat.title;
+  document.getElementById('proj-title').textContent = p.title;
+  document.getElementById('proj-back').onclick = function () { navigate('category/' + cat.id); };
+
+  var html = '';
+
+  /* Context */
+  if (p.context) {
+    html += section('Context', '<p class="proj-context">' + esc(p.context) + '</p>');
+  }
+
+  /* Challenge */
+  if (p.challenge) {
+    html += section('The Challenge', '<p class="proj-challenge">' + esc(p.challenge) + '</p>');
+  }
+
+  /* What I Built */
+  if (p.whatIBuilt && p.whatIBuilt.length) {
+    html += section('What I Built',
+      '<ul class="proj-built">' +
+        p.whatIBuilt.map(function (item) { return '<li>' + esc(item) + '</li>'; }).join('') +
+      '</ul>'
+    );
+  }
+
+  /* Preview — device frames (landing pages) */
+  if (p.previewStyle === 'device' && p.images && p.images.length >= 2) {
+    html += section('Preview', renderDeviceFrame(p.images[0], p.images[1]));
+  }
+  /* Preview — standard (all other projects) */
+  else if (p.images && p.images.length > 0) {
+    var cols  = p.images.length >= 2 ? 'two' : '';
+    var slots = p.images.map(function (src) {
+      if (src && src.trim()) {
+        return '<div><img src="' + escAttr(src) + '" alt="Project preview" class="preview-real" loading="lazy"></div>';
+      }
+      return '<div class="preview-slot"><span>Preview</span></div>';
+    }).join('');
+    html += section('Preview', '<div class="preview-grid ' + cols + '">' + slots + '</div>');
+  }
+
+  /* Email performance timeline */
+  if (p.timelineImages && p.timelineImages.length) {
+    html += section('Performance — Last 9 Months', renderTimeline(p.timelineImages));
+  }
+
+  /* Outcome */
+  if (p.outcome) {
+    html += section('Outcome', '<p class="proj-outcome">' + esc(p.outcome) + '</p>');
+  }
+
+  document.getElementById('proj-body').innerHTML = html;
+  showView('view-project');
+}
+
+function section(label, content) {
+  return '<div class="proj-section">' +
+    '<span class="proj-sec-label">' + esc(label) + '</span>' +
+    content +
+    '</div>';
+}
+
+function panel(cls, labelText, data) {
+  var imgHtml = data.imgSrc
+    ? '<div class="ba-img-slot"><img src="' + escAttr(data.imgSrc) + '" alt="' + esc(labelText) + ' analytics"></div>'
+    : '<div class="ba-img-slot"><span>Analytics screenshot</span></div>';
+  return '<div class="ba-panel ' + cls + '">' +
+    '<span class="ba-label">' + esc(labelText) + '</span>' +
+    '<div class="ba-stat"><span class="ba-num">' + esc(data.openRate) + '</span><span class="ba-stat-label">Open rate</span></div>' +
+    '<div class="ba-stat"><span class="ba-num">' + esc(data.ctr)      + '</span><span class="ba-stat-label">Click-through rate</span></div>' +
+    imgHtml +
+    '</div>';
+}
+
+
+function renderDeviceFrame(desktopSrc, mobileSrc) {
+  var macScreen = desktopSrc && desktopSrc.trim()
+    ? '<img src="' + escAttr(desktopSrc) + '" alt="Desktop preview" loading="lazy">'
+    : '<div class="slot"><span class="device-slot-label">Desktop screenshot</span></div>';
+
+  var phoneScreen = mobileSrc && mobileSrc.trim()
+    ? '<img src="' + escAttr(mobileSrc) + '" alt="Mobile preview" loading="lazy">'
+    : '<div class="slot"><span class="device-slot-label">Mobile screenshot</span></div>';
+
+  return '<div class="device-pair">' +
+    '<div class="device-mac">' +
+      '<div class="device-mac-bar">' +
+        '<div class="device-mac-dot"></div>' +
+        '<div class="device-mac-dot"></div>' +
+        '<div class="device-mac-dot"></div>' +
+      '</div>' +
+      '<div class="device-mac-screen">' + macScreen + '</div>' +
+    '</div>' +
+    '<div class="device-iphone-wrap">' +
+      '<div class="device-iphone-shell">' +
+        '<div class="device-iphone-notch"></div>' +
+        '<div class="device-iphone-screen">' + phoneScreen + '</div>' +
+        '<div class="device-iphone-bar"></div>' +
+      '</div>' +
+    '</div>' +
+  '</div>';
+}
+
+function renderTimeline(items) {
+  var parts = [];
+  items.forEach(function (item, i) {
+    var imgHtml = item.imgSrc && item.imgSrc.trim()
+      ? '<img src="' + escAttr(item.imgSrc) + '" alt="' + esc(item.period) + '" loading="lazy">'
+      : '<span class="slot-lbl">Screenshot</span>';
+
+    parts.push(
+      '<div class="tl-item">' +
+        '<div class="tl-img-slot">' + imgHtml + '</div>' +
+        '<div class="tl-meta">' +
+          '<span class="tl-period">' + esc(item.period) + '</span>' +
+          '<span class="tl-sublabel">' + esc(item.sublabel) + '</span>' +
+        '</div>' +
+      '</div>'
+    );
+
+    if (i < items.length - 1) {
+      parts.push('<div class="tl-arrow" aria-hidden="true">&#8594;</div>');
+    }
+  });
+  return '<div class="email-timeline">' + parts.join('') + '</div>';
+}
+
+
+/* ================================================================
+ * SCROLL REVEAL
+ * ================================================================ */
+function initReveal() {
+  if (!('IntersectionObserver' in window)) {
+    document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('visible'); });
+    return;
+  }
+  var obs = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(function (el) { obs.observe(el); });
+}
+
+/* ── NAV scroll behaviour ── */
+window.addEventListener('scroll', function () {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 10);
+}, { passive: true });
+
+
+/* ================================================================
+ * EVENT DELEGATION
+ * ================================================================ */
+document.addEventListener('click', function (e) {
+  /* data-nav buttons/links */
+  var navTarget = e.target.closest('[data-nav]');
+  if (navTarget) { navigate(navTarget.getAttribute('data-nav')); return; }
+
+  /* data-scroll links */
+  var scrollTarget = e.target.closest('[data-scroll]');
+  if (scrollTarget) {
+    var sectionId = scrollTarget.getAttribute('data-scroll');
+    var hash = getHash();
+    if (hash !== 'home' && hash !== '') {
+      navigate('home');
+      setTimeout(function () { scrollToId(sectionId); }, 350);
+    } else {
+      scrollToId(sectionId);
+    }
+    /* close mobile menu if open */
+    document.getElementById('mobile-nav').classList.remove('open');
+    document.body.style.overflow = '';
+    return;
+  }
+
+  /* logo */
+  if (e.target.classList.contains('nav-logo') || e.target.closest('.nav-logo')) {
+    navigate('home');
+    return;
+  }
+
+  /* mobile close */
+  if (e.target.id === 'mobile-close') {
+    document.getElementById('mobile-nav').classList.remove('open');
+    document.body.style.overflow = '';
+    return;
+  }
+});
+
+function scrollToId(id) {
+  var el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+/* burger */
+document.getElementById('burger-btn').addEventListener('click', function () {
+  document.getElementById('mobile-nav').classList.add('open');
+  document.body.style.overflow = 'hidden';
+});
+
+
+/* ================================================================
+ * INIT
+ * ================================================================ */
+renderHome();
+route(getHash());
+</script>
+</body>
+</html>
